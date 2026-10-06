@@ -1,0 +1,56 @@
+# --- Android packages: never commit binaries ---
+*.apk
+*.apks
+*.xapk
+*.apkm
+*.aab
+*.dex
+*.jar
+*.so
+*.arsc
+
+# --- apkre run output (workspaces, findings, results) ---
+apkre-out/
+workspaces/
+results.jsonl
+summary.json
+findings.schema.json
+state.db
+state.db-wal
+state.db-shm
+reports/
+.meta/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- secrets / local config ---
+*.key
+*.pem
+.env
+.env.*
+secrets.json
+*_rsa
+id_rsa
+id_ed25519
+
+# --- editors / OS ---
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# --- reverse-engineering scratch output ---
+work/
+extracted/
+jadxout/
+strings.txt
+rizin-out/

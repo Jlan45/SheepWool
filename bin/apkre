@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# apkre launcher — runs the package straight from the source tree.
+set -euo pipefail
+
+# Resolve through symlinks so `ln -s .../bin/apkre ~/.local/bin/` still finds
+# the repo: BASH_SOURCE[0] would otherwise be the symlink, and ROOT would be
+# computed from ~/.local/bin instead of the actual checkout.
+SOURCE="${BASH_SOURCE[0]}"
+while [ -L "$SOURCE" ]; do
+  DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+  SOURCE="$(readlink "$SOURCE")"
+  case "$SOURCE" in
+    /*) ;;
+    *) SOURCE="$DIR/$SOURCE" ;;
+  esac
+done
+ROOT="$(cd -P "$(dirname "$SOURCE")/.." && pwd)"
+
+# The agent and the MCP server both need these on PATH.
+export PATH="$HOME/.local/bin:$PATH"
+export PYTHONPATH="$ROOT${PYTHONPATH:+:$PYTHONPATH}"
+
+exec python3 -m apkre "$@"
